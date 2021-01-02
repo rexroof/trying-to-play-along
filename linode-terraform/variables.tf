@@ -1,7 +1,7 @@
 variable "tags" {
   description = "Tags to apply to your cluster for organizational purposes. (optional)"
   type        = list(string)
-  default     = ["k8s-demo"]
+  default     = ["lke-demo", "Terraform"]
 }
 
 variable "linode_token" {
@@ -16,7 +16,7 @@ variable "k8s_version" {
 
 variable "label" {
   type    = string
-  default = "rex-k8s-demo"
+  default = "lke-demo"
 }
 
 variable "region" {

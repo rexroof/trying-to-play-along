@@ -14,3 +14,11 @@ resource "linode_lke_cluster" "foobar" {
     }
   }
 }
+
+
+// write out our kubeconfig ( in base64 )
+resource "local_file" "kubeconfig" {
+    content     = linode_lke_cluster.foobar.kubeconfig
+    filename = "${path.module}/kubecfg.b64"
+}
+
