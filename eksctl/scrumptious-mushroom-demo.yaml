@@ -1,0 +1,24 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: scrumptious-mushroom-demo
+  region: us-east-2
+  version: "1.18"
+
+availabilityZones: ["us-east-2a", "us-east-2b", "us-east-2c" ]
+
+managedNodeGroups:
+- name: nodegroup
+  desiredCapacity: 1
+  privateNetworking: true
+  ssh:
+    allow: false
+
+# To enable all of the control plane logs, uncomment below:
+# cloudWatch:
+#  clusterLogging:
+#    enableTypes: ["*"]
+
+# secretsEncryption:
+#   keyARN: ${MASTER_ARN}
