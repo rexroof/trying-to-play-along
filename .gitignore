@@ -2,3 +2,6 @@
 **/.terraform*
 **/.env
 **/kubecfg.b64
+**/.azure
+**/.kube
+digitalocean/.config
