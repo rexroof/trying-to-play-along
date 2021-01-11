@@ -36,6 +36,14 @@ and then use this with kubectl
 
 ``` 
     export KUBECONFIG=$PWD/kubeconfig 
-    kubectl get pods
+    kubectl get pods -A
 ```
 
+Even better, do this to install this kubeconfig in your $HOME/.kube/config
+
+```
+    KUBECONFIG="$HOME/.kube/config:$PWD/kubeconfig" \
+      kubectl config view --flatten > kconfig.tmp ; \
+      mv kconfig.tmp $HOME/.kube/config ; \
+      chmod 0600 $HOME/.kube/config
+```
