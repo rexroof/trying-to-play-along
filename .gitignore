@@ -3,5 +3,6 @@
 **/.env
 **/kubecfg.b64
 **/.azure
+**/.argocd
 **/.kube
 digitalocean/.config

@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kuard
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated: {}
+  source:
+    repoURL: https://github.com/rexroof/kuard-example-app.git
+    targetRevision: HEAD
+    path: deploy
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kuard
