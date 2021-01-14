@@ -5,4 +5,4 @@
 **/.azure
 **/.argocd
 **/.kube
-digitalocean/.config
+**/.config
