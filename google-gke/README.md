@@ -26,6 +26,14 @@ after this, you will need to activate billing on this project.
 do that by going to the cloud console under billing:
 [Google Cloud Console Billing](https://console.cloud.google.com/billing/projects)
 
+This can also be done with the gcloud cli:
+
+```
+    # list your available billing accounts
+    ./gcloud.sh alpha billing accounts list
+    # associate it with your project using the billing account id
+    ./gcloud.sh alpha billing projects link gkedemo2021 --billing-account 0X0X0X-0X0X0X-0X0X0X
+```
 
 ### create cluster
 
