@@ -65,6 +65,20 @@ replace GITHUB_PATH with the path where this repo is checked out
 
 optionally, you could symlink gcloud to the script in this directory
 
+### enable GKE ingress controller
+
+```
+   $ ./gcloud.sh container clusters update gke-demo --update-addons=HttpLoadBalancing=ENABLED
+```
+
+### adding more nodes to your  cluster
+
+```
+    ./gcloud.sh container clusters resize gke-demo \
+      --node-pool default-pool --num-nodes 3 --quiet
+```
+
+
 ### cleanup
 
 to cleanup you can just delete your whole project
