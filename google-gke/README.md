@@ -17,9 +17,9 @@ after you are authenticated, set your default compute zone and create your proje
 note: you will need to create your own unique project name
 
 ```
-   ./gcloud.sh config set compute/zone us-west1-a
-   ./gcloud.sh project create gkedemo2021
-   ./gcloud config set project gkedemo2021
+   ./gcloud.sh config   set compute/zone us-west1-a
+   ./gcloud.sh projects create rexgkedemo2021
+   ./gcloud.sh config   set project rexgkedemo2021
 ```
 
 after this, you will need to activate billing on this project.  
@@ -35,14 +35,35 @@ This can also be done with the gcloud cli:
     ./gcloud.sh alpha billing projects link gkedemo2021 --billing-account 0X0X0X-0X0X0X-0X0X0X
 ```
 
+### enable container services
+
+this command might take a minute, it enables the google cloud container services APIs on your project
+
+```
+   ./gcloud.sh services enable container.googleapis.com 
+```
+
 ### create cluster
 
 gke-demo is your cluster name.
 
 ```
-   ./gcloud.sh container clusters create gke-demo --num-nodes=1 --release-channel=rapid
+   ./gcloud.sh container clusters create gke-demo --enable-ip-alias --num-nodes=1 --release-channel=rapid
 ```
 
+### update kubecfg for docker
+
+Since we're running gcloud in docker via this script, we need to change the kube config so that it can find our gcloud command.
+
+edit your ~/.kube/config, find the cmd-path for glcoud and replace it with something like this:
+
+```
+    cmd-path: $GITHUB_PATH/trying-to-play-along/google-gke/gcloud.sh
+```
+
+replace GITHUB_PATH with the path where this repo is checked out
+
+optionally, you could symlink gcloud to the script in this directory
 
 ### cleanup
 
