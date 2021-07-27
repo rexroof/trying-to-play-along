@@ -80,12 +80,11 @@ at this point, your kubectl should work locally.  test it out with the following
 
 ### enable GKE ingress controller
 
-this will add an ingress controller to your cluster.
-
-
 ```
-   $ ./gcloud.sh container clusters update gke-demo --update-addons=HttpLoadBalancing=ENABLED
+    ./gcloud.sh container clusters update gke-demo --update-addons=HttpLoadBalancing=ENABLED
 ```
+
+note: upgrading the cluster this way will cause the cluster to be unavailable for a moment.
 
 ### adding more nodes to your  cluster
 
@@ -102,5 +101,5 @@ If you find that you need to add more nodes to your cluster, use this gcloud com
 to cleanup you can just delete your whole project
 
 ```
-   ./gcloud.sh project delete ${GKEPROJECT} --quiet
+   ./gcloud.sh projects delete ${GKEPROJECT} --quiet
 ```
