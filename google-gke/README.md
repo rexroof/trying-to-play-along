@@ -17,9 +17,10 @@ after you are authenticated, set your default compute zone and create your proje
 note: you will need to create your own unique project name
 
 ```
+   export GKEPROJECT=$(date +rex-gkedemo-%Y%m%d)
    ./gcloud.sh config   set compute/zone us-west1-a
-   ./gcloud.sh projects create rexgkedemo2021
-   ./gcloud.sh config   set project rexgkedemo2021
+   ./gcloud.sh projects create ${GKEPROJECT}
+   ./gcloud.sh config   set project ${GKEPROJECT}
 ```
 
 after this, you will need to activate billing on this project.  
@@ -32,7 +33,7 @@ This can also be done with the gcloud cli:
     # list your available billing accounts
     ./gcloud.sh alpha billing accounts list
     # associate it with your project using the billing account id
-    ./gcloud.sh alpha billing projects link gkedemo2021 --billing-account 0X0X0X-0X0X0X-0X0X0X
+    ./gcloud.sh alpha billing projects link ${GKEPROJECT} --billing-account 0X0X0X-0X0X0X-0X0X0X
 ```
 
 ### enable container services
@@ -40,7 +41,7 @@ This can also be done with the gcloud cli:
 this command might take a minute, it enables the google cloud container services APIs on your project
 
 ```
-   ./gcloud.sh services enable container.googleapis.com 
+   ./gcloud.sh services enable container.googleapis.com
 ```
 
 ### create cluster
@@ -48,7 +49,8 @@ this command might take a minute, it enables the google cloud container services
 gke-demo is your cluster name.
 
 ```
-   ./gcloud.sh container clusters create gke-demo --enable-ip-alias --num-nodes=1 --release-channel=rapid
+   ./gcloud.sh container clusters create gke-demo \
+      --enable-ip-alias --num-nodes=1 --release-channel=rapid
 ```
 
 ### update kubecfg for docker
@@ -65,13 +67,29 @@ replace GITHUB_PATH with the path where this repo is checked out
 
 optionally, you could symlink gcloud to the script in this directory
 
+
+### test kubectl 
+
+at this point, your kubectl should work locally.  test it out with the following commands
+
+```
+    kubectl get nodes
+    kubectl get namespaces
+    kubectl get pods -A
+```
+
 ### enable GKE ingress controller
+
+this will add an ingress controller to your cluster.
+
 
 ```
    $ ./gcloud.sh container clusters update gke-demo --update-addons=HttpLoadBalancing=ENABLED
 ```
 
 ### adding more nodes to your  cluster
+
+If you find that you need to add more nodes to your cluster, use this gcloud command:
 
 ```
     ./gcloud.sh container clusters resize gke-demo \
@@ -84,5 +102,5 @@ optionally, you could symlink gcloud to the script in this directory
 to cleanup you can just delete your whole project
 
 ```
-   ./gcloud.sh project delete gkedemo2021
+   ./gcloud.sh project delete ${GKEPROJECT} --quiet
 ```
